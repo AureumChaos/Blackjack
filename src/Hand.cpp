@@ -1,6 +1,6 @@
 //*********************************************************************
 //
-// hand.cpp
+// Hand.cpp
 //
 // A class that defines a hand of cards in Blackjack
 //
@@ -8,6 +8,7 @@
 //
 // Updates:
 //    09/10/2016  Created
+//    09/12/2016  Added evalHand() method to determine "soft" hands too.
 // 
 //*********************************************************************
 
@@ -46,22 +47,20 @@ void Hand::display()
 {
     vector<Card *>::iterator iter;
     for (iter = this->begin(); iter != this->end(); ++iter)
-    {
         (*iter)->display();
-        cout<<endl;
-    }
 }
 
 
 //*********************************************************************
 //
-// Hand::value
+// Hand::evalHand
 //
-// Calculates the value of the hand.  In particular, this function deals
-// with the values of aces appropriately.
+// Collects and returns information about the current hand, including the
+// value of the hand (with aces counted properly) and whether the had is soft
+// or not (i.e. has a high value ace).
 //
 //*********************************************************************
-int Hand::value()
+void Hand::evalHand(int &value, bool &isSoft)
 {
     int handVal = 0;
     int num_elevens = 0;   // The number of aces that were counted as 11
@@ -84,7 +83,25 @@ int Hand::value()
         num_elevens--;
     }
 
-    return handVal;
+    value = handVal;
+    isSoft = num_elevens > 0;
+}
+
+
+//*********************************************************************
+//
+// Hand::value
+//
+// I made this a function because calling evalHand can be a pain sometimes.
+//
+//*********************************************************************
+int Hand::value()
+{
+    int value;
+    bool isSoft;
+
+    evalHand(value, isSoft);
+    return value;
 }
 
 
