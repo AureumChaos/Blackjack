@@ -1,6 +1,6 @@
 //*********************************************************************
 //
-// card.cpp
+// Card.cpp
 //
 // A class that defines a playing card
 //
@@ -8,6 +8,7 @@
 //
 // Updates:
 //    09/09/2016  Created
+//    09/11/2016  Minor change to display.  Added endl.
 // 
 //*********************************************************************
 
@@ -51,7 +52,7 @@ Card::Card(int rank_, int suit_)
 //*********************************************************************
 void Card::display()
 {
-    cout << RANK_NAMES[this->rank] << " of " << SUIT_NAMES[this->suit];
+    cout << RANK_NAMES[this->rank] << " of " << SUIT_NAMES[this->suit] << endl;
 }
 
 
