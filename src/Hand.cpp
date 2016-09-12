@@ -13,8 +13,10 @@
 //*********************************************************************
 
 #include <iostream>
+#include <sstream>
 
-#include "hand.h"
+#include "BaseUI.h"
+#include "Hand.h"
 
 using namespace std;
 
@@ -43,11 +45,26 @@ Hand::~Hand()
 // Display the contants of the hand
 //
 //*********************************************************************
-void Hand::display()
+void Hand::display(BaseUI &ui, bool hide)
 {
+    stringstream ss;
+    int i = 0;
     vector<Card *>::iterator iter;
+
     for (iter = this->begin(); iter != this->end(); ++iter)
-        (*iter)->display();
+    {
+        if(hide && i == 0)
+        {
+            ss << "<hidden>" << endl;
+            ui.text(ss.str());
+        } 
+        else
+        {
+            (*iter)->display(ui);
+        }
+
+        i++;
+    }
 }
 
 

@@ -24,7 +24,7 @@ using namespace std;
 class UserPlayer : public Player
 {
     public:
-        UserPlayer() {};
+        UserPlayer() : Player("You") {};
         virtual ~UserPlayer() {};
 
         virtual enum Action decideAction(const Game &game);

@@ -20,6 +20,8 @@
 #include "Player.h"
 #include "UserPlayer.h"
 #include "Dealer.h"
+#include "BaseUI.h"
+//#include "ConsoleUI.h"
 
 using namespace std;
 
@@ -39,7 +41,8 @@ class Game
         void deal();
         void play();
         void score();
-        void restart();
+        void cleanup();
+        void displayState(BaseUI &ui);
 };
 
 #endif

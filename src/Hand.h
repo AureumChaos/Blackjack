@@ -21,15 +21,17 @@
 #ifndef HAND_H
 #define HAND_H
 
-#include "card.h"
 #include <vector>
+
+#include "BaseUI.h"
+#include "Card.h"
 
 class Hand: public vector<Card *>
 {
     public:
         ~Hand();
 
-        void display();
+        void display(BaseUI &ui, bool hide);
         void evalHand(int &value, bool &isSoft);
         int value();
 };

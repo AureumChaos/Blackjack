@@ -12,6 +12,7 @@
 //*********************************************************************
 
 #include <iostream>
+#include <sstream>
 #include <cassert>
 
 #include "Game.h"
@@ -101,12 +102,36 @@ void Game::score()
 
 //*********************************************************************
 //
-// Game::restart
+// Game::cleanup
 //
 //*********************************************************************
-void Game::restart()
+void Game::cleanup()
 {
-    // TODO: Implement this
+    vector<Player *>::iterator p_iter;
+    for(p_iter = players.begin(); p_iter != players.end(); ++p_iter)
+    {
+        (*p_iter)->returnCards(deck);
+    }
+}
+
+
+//*********************************************************************
+//
+// Game::displayState
+//
+//*********************************************************************
+void Game::displayState(BaseUI &ui)
+{
+    // I'm kind of assuming only 2 players here.  If there are ever more,
+    // this might need to be rewritten.
+    stringstream ss;
+    vector<Player *>::reverse_iterator riter;
+    for(riter = players.rbegin(); riter != players.rend(); ++riter)
+    {
+        (*riter)->displayHand(ui, true);
+        ss << "Hand value: " << (*riter)->handValue() << endl;
+        ui.text(ss.str());
+    }
 }
 
 

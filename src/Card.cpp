@@ -13,6 +13,7 @@
 //*********************************************************************
 
 #include <iostream>
+#include <sstream>
 #include <cassert>
 
 #include "card.h"
@@ -50,9 +51,11 @@ Card::Card(int rank_, int suit_)
 // Display a card
 //
 //*********************************************************************
-void Card::display()
+void Card::display(BaseUI &ui)
 {
-    cout << RANK_NAMES[this->rank] << " of " << SUIT_NAMES[this->suit] << endl;
+    stringstream ss;
+    ss << RANK_NAMES[this->rank] << " of " << SUIT_NAMES[this->suit] << endl;
+    ui.text(ss.str());
 }
 
 

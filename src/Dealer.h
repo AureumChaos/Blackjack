@@ -24,7 +24,7 @@ using namespace std;
 class Dealer : public Player
 {
     public:
-        Dealer() {};
+        Dealer() : Player("Dealer") {};
         virtual ~Dealer() {};
 
         virtual Action decideAction(const Game &game);

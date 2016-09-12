@@ -37,13 +37,13 @@ Player::~Player()
 
 //*********************************************************************
 //
-// Player::returnCardsToDeck
+// Player::returnCards
 //
 // Move the cards in the players hand back to the deck.  The deck is now
 // responsible for memory deallocation.
 //
 //*********************************************************************
-void Player::returnCardsToDeck(Deck &deck)
+void Player::returnCards(Deck &deck)
 {
     while(!hand.empty())
     {

@@ -29,15 +29,17 @@ enum Action {HIT, STAY};
 class Player
 {
     protected:
-        Hand hand;
+        string name;
+        Hand   hand;
 
     public:
-        Player() {};
+        Player(const string &playerName) : name(playerName) {};
         virtual ~Player();
 
         virtual void dealACard(Card *card) {hand.push_back(card);};
         virtual int handValue() {return hand.value();};
-        virtual void returnCardsToDeck(Deck &deck);
+        virtual void returnCards(Deck &deck);
+        virtual void displayHand(BaseUI &ui, bool hide) {hand.display(ui, hide);};
 
         virtual Action decideAction(const Game &game) = 0;  // Pure
            // I'm not thrilled about passing the Game instance into this

@@ -17,6 +17,8 @@
 #include <string>
 using namespace std;
 
+#include "BaseUI.h"
+
 
 class Card
 {
@@ -34,7 +36,7 @@ class Card
 
         Card(int rank, int suit);
         ~Card() {};
-        void display();
+        void display(BaseUI &ui);
         int value() {return Card::RANK_VALUES[this->rank];};
 };
 

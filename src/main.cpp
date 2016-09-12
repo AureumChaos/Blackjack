@@ -1,47 +1,55 @@
+//*********************************************************************
+//
+// main.cpp
+//
+// A test harness for the various classes.  The main entry point will
+// probably change by the time I'm done.
+//
+// Author: Jeff Bassett
+//
+// Updates:
+//    09/10/2016  Created
+// 
+//*********************************************************************
+
 
 #include <cstdlib>
+#include <string>
 #include <iostream>
+#include <sstream>
 using namespace std;
 
 #include "Card.h"
 #include "Deck.h"
 #include "Hand.h"
+#include "Game.h"
+#include "ConsoleUI.h"
 
 
 int main()
 {
-    Deck deck;
-    Hand hand;
+    Game game;
+    ConsoleUI ui;
 
-    deck.shuffle();
+    ui.text("Deal...\n");
+    game.deal();
+    game.displayState(ui);
+    ui.text("\n");
 
-    //hand.push_back(deck.takeTopCard());
-    //hand.display();
-    //cout << hand.value() << endl << endl;
+    ui.text("Play...\n");
+    game.play();
+    game.displayState(ui);
+    ui.text("\n");
 
-    hand.push_back(new Card(8, 0));   // 10 of Diamonds
-    hand.display();
-    cout << hand.value() << endl << endl;
+    ui.text("Score...\n");
+    game.score();
+    game.displayState(ui);
+    ui.text("\n");
 
-    hand.push_back(new Card(5, 0));   // 7 of Diamonds
-    hand.display();
-    cout << hand.value() << endl << endl;
-
-    hand.push_back(new Card(12, 0));   // Ace of Diamonds
-    hand.display();
-    cout << hand.value() << endl << endl;
-
-    hand.push_back(new Card(12, 1));   // Ace of Hearts
-    hand.display();
-    cout << hand.value() << endl << endl;
-
-    hand.push_back(new Card(12, 2));   // Ace of Clubs
-    hand.display();
-    cout << hand.value() << endl << endl;
-
-    hand.push_back(new Card(12, 3));   // Ace of Spades
-    hand.display();
-    cout << hand.value() << endl << endl;
+    ui.text("Cleanup...\n");
+    game.cleanup();
+    game.displayState(ui);
+    ui.text("\n");
 }
 
 

@@ -31,7 +31,7 @@ Action Dealer::decideAction(const Game &game)
     bool isSoft;
     hand.evalHand(value, isSoft);
 
-    if(value > 17 || (value == 17 && isSoft))
+    if(value < 17 || (value == 17 && isSoft))
         return(HIT);
 
     return(STAY);
