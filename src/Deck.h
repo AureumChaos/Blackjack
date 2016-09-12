@@ -1,6 +1,6 @@
 //*********************************************************************
 //
-// deck.h
+// Deck.h
 //
 // A class that defines a deck of cards
 //
@@ -8,6 +8,7 @@
 //
 // Updates:
 //    09/09/2016  Created
+//    09/12/2016  Added addCard() method.
 // 
 //*********************************************************************
 
@@ -28,6 +29,7 @@ class Deck
 
         void shuffle();
         int size() {return theDeck.size();};
+        void addCard(Card*);
         Card * takeTopCard();
 };
 

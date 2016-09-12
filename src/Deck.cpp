@@ -1,6 +1,6 @@
 //*********************************************************************
 //
-// deck.cpp
+// Deck.cpp
 //
 // A class that defines a deck of cards
 //
@@ -8,6 +8,7 @@
 //
 // Updates:
 //    09/09/2016  Created
+//    09/12/2016  Added addCard() method.
 // 
 //*********************************************************************
 
@@ -68,6 +69,20 @@ void Deck::shuffle()
     std::random_device rd;
     std::mt19937 g(rd());
     std::shuffle(theDeck.begin(), theDeck.end(), g);
+}
+
+
+//*********************************************************************
+//
+// Deck::addCard
+//
+// Adds a card to the top of the deck.  The deck takes responsible for memory
+// deallocation of the card.
+//
+//*********************************************************************
+void Deck::addCard(Card *card)
+{
+    theDeck.push_back(card);
 }
 
 
