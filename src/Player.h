@@ -18,6 +18,7 @@
 
 #include "Hand.h"
 #include "Deck.h"
+#include "BaseUI.h"
 class Game;  // Forward reference
 
 
@@ -39,9 +40,9 @@ class Player
         virtual void dealACard(Card *card) {hand.push_back(card);};
         virtual int handValue() {return hand.value();};
         virtual void returnCards(Deck &deck);
-        virtual void displayHand(BaseUI &ui, bool hide) {hand.display(ui, hide);};
+        virtual void displayHand(BaseUI &ui, bool hide);
 
-        virtual Action decideAction(const Game &game) = 0;  // Pure
+        virtual Action decideAction(BaseUI &ui, const Game &game) = 0;  // Pure
            // I'm not thrilled about passing the Game instance into this
            // function, but I thought it provided more options for future
            // expansion.  For now, the only thing the dealer needs to know is

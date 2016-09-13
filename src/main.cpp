@@ -17,6 +17,7 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+#include <vector>
 using namespace std;
 
 #include "Card.h"
@@ -31,25 +32,24 @@ int main()
     Game game;
     ConsoleUI ui;
 
-    ui.text("Deal...\n");
-    game.deal();
-    game.displayState(ui);
-    ui.text("\n");
+    const char* char_yes_no[] = {"yes", "no"};
+    vector<string> yes_no(char_yes_no, char_yes_no + 2);
+    string question("Play again?");
 
-    ui.text("Play...\n");
-    game.play();
-    game.displayState(ui);
-    ui.text("\n");
+    int answer = 0;
+    while(yes_no[answer] == "yes")
+    {
+        game.deal();
+        game.play(ui);
 
-    ui.text("Score...\n");
-    game.score();
-    game.displayState(ui);
-    ui.text("\n");
+        ui.text("Score...\n");
+        game.score();
+        game.displayState(ui, false);
+        ui.text("\n");
 
-    ui.text("Cleanup...\n");
-    game.cleanup();
-    game.displayState(ui);
-    ui.text("\n");
+        game.cleanup();
+        answer = ui.choose("Play again?", yes_no, 0);
+    }
 }
 
 

@@ -54,14 +54,9 @@ void Hand::display(BaseUI &ui, bool hide)
     for (iter = this->begin(); iter != this->end(); ++iter)
     {
         if(hide && i == 0)
-        {
-            ss << "<hidden>" << endl;
-            ui.text(ss.str());
-        } 
+            ui.text("   <hidden>\n");
         else
-        {
             (*iter)->display(ui);
-        }
 
         i++;
     }

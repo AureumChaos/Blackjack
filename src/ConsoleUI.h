@@ -27,7 +27,7 @@ class ConsoleUI : public BaseUI
         ~ConsoleUI() {};
         virtual void text(const string &str);
         virtual int choose(const string &question,
-                           const vector<string> choices,
+                           const vector<string> &choices,
                            int myDefault=0);
 };
 

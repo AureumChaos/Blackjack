@@ -15,6 +15,20 @@
 #include <cassert>
 
 #include "UserPlayer.h"
+#include "Game.h"
+
+
+//*********************************************************************
+//
+// UserPlayer::displayHand
+//
+// Display the user's hand.  Ignore the hide flag.
+//
+//*********************************************************************
+void UserPlayer::displayHand(BaseUI &ui, bool hide)
+{
+    Player::displayHand(ui, false);
+}
 
 
 //*********************************************************************
@@ -24,10 +38,34 @@
 // Return the player's decision of whether to "hit" or "stay".
 //
 //*********************************************************************
-enum Action UserPlayer::decideAction(const Game &game)
+enum Action UserPlayer::decideAction(BaseUI &ui, const Game &game)
 {
-    // TODO Not done yet.
-    return HIT;
+    game.displayState(ui, true);
+
+    const char* char_choices[] = {"stay", "hit"};
+    vector<string> choices(char_choices, char_choices + 2);
+    string question("What do you want to do?");
+
+    cout << "Calling choose" << endl;
+
+    int c = ui.choose(question, choices);
+    cout << "You chose " << choices[c] << endl;
+
+    Action action;
+    switch(c)
+    {
+        case 0:
+            action = STAY;
+            break;
+        case 1:
+            action = HIT;
+            break;
+        default:
+            cerr << "UserPlayer::decideAction" << endl;
+            cerr << "Unkown action.  This should never happen!!" << endl;
+    }
+
+    return action;
 }
 
 

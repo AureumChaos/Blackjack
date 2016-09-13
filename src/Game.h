@@ -39,10 +39,10 @@ class Game
         Game();
         ~Game();
         void deal();
-        void play();
+        void play(BaseUI &ui);
         void score();
         void cleanup();
-        void displayState(BaseUI &ui);
+        void displayState(BaseUI &ui, bool hide) const;
 };
 
 #endif

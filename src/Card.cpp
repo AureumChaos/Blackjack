@@ -54,7 +54,7 @@ Card::Card(int rank_, int suit_)
 void Card::display(BaseUI &ui)
 {
     stringstream ss;
-    ss << RANK_NAMES[this->rank] << " of " << SUIT_NAMES[this->suit] << endl;
+    ss << "   " << RANK_NAMES[this->rank] << " of " << SUIT_NAMES[this->suit] << endl;
     ui.text(ss.str());
 }
 

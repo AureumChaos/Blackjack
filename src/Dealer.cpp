@@ -25,7 +25,7 @@
 // Return the dealer's decision of whether to "hit" or "stay".
 //
 //*********************************************************************
-Action Dealer::decideAction(const Game &game)
+Action Dealer::decideAction(BaseUI &ui, const Game &game)
 {
     int value;
     bool isSoft;

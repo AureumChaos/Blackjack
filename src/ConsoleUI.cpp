@@ -38,7 +38,7 @@ void ConsoleUI::text(const string &str)
 //
 //*********************************************************************
 int ConsoleUI::choose(const string &question,
-                      const vector<string> choices,
+                      const vector<string> &choices,
                       int myDefault)
 {
     string input;
@@ -48,24 +48,24 @@ int ConsoleUI::choose(const string &question,
         cout << question << " (";
 
         int len = choices.size();
-        for (int i = 0; i < len-1; i++)
+        for (int i = 0; i < len; i++)
         {
             cout << choices[i];
             if (i == myDefault)
                 cout << "[default]";
-            cout << ",";
-        }
-        cout << choices[len] << ")" << endl;
 
-        cin >> input;
-        if(input.compare("") == 0)
+            if(i != len-1)
+                cout << ", ";
+        }
+        cout << ")" << endl;
+
+        getline(cin, input);
+        if(input.empty())
             return myDefault;
 
         for (int i = 0; i < choices.size(); i++)
-        {
             if (input.compare(choices[i]) == 0)
                 return i;
-        }
     }
 }
 

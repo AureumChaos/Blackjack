@@ -27,7 +27,8 @@ class UserPlayer : public Player
         UserPlayer() : Player("You") {};
         virtual ~UserPlayer() {};
 
-        virtual enum Action decideAction(const Game &game);
+        virtual enum Action decideAction(BaseUI &ui, const Game &game);
+        virtual void displayHand(BaseUI &ui, bool hide);
 };
 
 #endif

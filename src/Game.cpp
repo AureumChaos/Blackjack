@@ -28,8 +28,8 @@
 Game::Game()
 {
     user = 0L;
-    //user = new UserPlayer();
-    //players.push_back(user);
+    user = new UserPlayer();
+    players.push_back(user);
 
     dealer = new Dealer();
     players.push_back(dealer);
@@ -78,13 +78,16 @@ void Game::deal()
 // Game::play
 //
 //*********************************************************************
-void Game::play()
+void Game::play(BaseUI &ui)
 {
     vector<Player *>::iterator p_iter;
     for(p_iter = players.begin(); p_iter != players.end(); ++p_iter)
     {
-        while((*p_iter)->decideAction(*this) == HIT)
+        while((*p_iter)->handValue() <= 21 &&
+              (*p_iter)->decideAction(ui, *this) == HIT)
+        {
             (*p_iter)->dealACard(deck.takeTopCard());
+        }
     }
 }
 
@@ -120,17 +123,16 @@ void Game::cleanup()
 // Game::displayState
 //
 //*********************************************************************
-void Game::displayState(BaseUI &ui)
+void Game::displayState(BaseUI &ui, bool hide) const
 {
     // I'm kind of assuming only 2 players here.  If there are ever more,
     // this might need to be rewritten.
-    stringstream ss;
-    vector<Player *>::reverse_iterator riter;
+    vector<Player *>::const_reverse_iterator riter;
     for(riter = players.rbegin(); riter != players.rend(); ++riter)
     {
-        (*riter)->displayHand(ui, true);
-        ss << "Hand value: " << (*riter)->handValue() << endl;
-        ui.text(ss.str());
+        (*riter)->displayHand(ui, hide);
+
+        ui.text("\n");
     }
 }
 

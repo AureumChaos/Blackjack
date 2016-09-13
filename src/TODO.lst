@@ -1,8 +1,10 @@
 [x] Figure out BaseUI linking problem
 [x] Make all ui go through UI classes
-[ ] Make sure all the logic in the Game class is right
-[ ] Test and debug the UI choose() method
-[ ] Implement UserPlayer  (will there be Game state display issues?)
+[x] Test and debug the UI choose() method
+[x] Implement UserPlayer  (will there be Game state display issues?)
+[x] Make sure all the logic in the Game class is right
+[x] Handle busts (exit loop)
+[ ] Calculate and display win/push/lose
 [ ] Display unicode cards
 [ ] Implement Deck as a DLL
 [ ] Implement Win32UI

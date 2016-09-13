@@ -12,6 +12,7 @@
 //*********************************************************************
 
 #include <iostream>
+#include <sstream>
 #include <cassert>
 
 #include "Player.h"
@@ -30,6 +31,32 @@ Player::~Player()
     {
         delete(hand.back());
         hand.pop_back();
+    }
+}
+
+
+
+//*********************************************************************
+//
+// Player::displayHand
+//
+// Display the contents of the player's hand
+//
+//*********************************************************************
+void Player::displayHand(BaseUI &ui, bool hide)
+{
+    stringstream ss;
+
+    ss << name << ":" << endl;
+    ui.text(ss.str());
+
+    hand.display(ui, hide);
+
+    if(!hide)
+    {
+        ss.str("");
+        ss << "Hand value: " << handValue() << endl;
+        ui.text(ss.str());
     }
 }
 

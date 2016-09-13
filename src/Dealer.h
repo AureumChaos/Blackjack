@@ -17,6 +17,7 @@
 #include <string>
 
 #include "Player.h"
+#include "BaseUI.h"
 
 using namespace std;
 
@@ -27,7 +28,7 @@ class Dealer : public Player
         Dealer() : Player("Dealer") {};
         virtual ~Dealer() {};
 
-        virtual Action decideAction(const Game &game);
+        virtual Action decideAction(BaseUI &ui, const Game &game);
 };
 
 #endif
