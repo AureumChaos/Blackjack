@@ -26,13 +26,13 @@ class Card
         int suit;
         int rank;
 
-        static const string SUIT_NAMES[];
-        static const string RANK_NAMES[];
-        static const int RANK_VALUES[];
-
     public:
         static const int NUM_SUITS;
         static const int NUM_RANKS;
+
+        static const string SUIT_NAMES[];
+        static const string RANK_NAMES[];
+        static const int RANK_VALUES[];
 
         Card(int rank, int suit);
         ~Card() {};

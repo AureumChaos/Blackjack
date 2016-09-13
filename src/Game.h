@@ -40,7 +40,7 @@ class Game
         ~Game();
         void deal();
         void play(BaseUI &ui);
-        void score();
+        int score() {return user->compareHands(*dealer);};;
         void cleanup();
         void displayState(BaseUI &ui, bool hide) const;
 };

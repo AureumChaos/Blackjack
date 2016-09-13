@@ -41,6 +41,8 @@ class Player
         virtual int handValue() {return hand.value();};
         virtual void returnCards(Deck &deck);
         virtual void displayHand(BaseUI &ui, bool hide);
+        virtual int compareHands(Player &otherPlayer)
+           {return hand.compareHands(otherPlayer.hand);};
 
         virtual Action decideAction(BaseUI &ui, const Game &game) = 0;  // Pure
            // I'm not thrilled about passing the Game instance into this

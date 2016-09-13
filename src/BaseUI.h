@@ -31,6 +31,7 @@ class BaseUI
         BaseUI() {};
         virtual ~BaseUI() {};
         virtual void text(const string &str) = 0;
+        virtual void drawCard(int rank, int suit) = 0;
         virtual int choose(const string &question,
                            const vector<string> &choices,
                            int myDefault=0) = 0;

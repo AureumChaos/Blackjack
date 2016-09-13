@@ -42,10 +42,20 @@ int main()
         game.deal();
         game.play(ui);
 
-        ui.text("Score...\n");
-        game.score();
-        game.displayState(ui, false);
-        ui.text("\n");
+        game.displayState(ui, false);  // Show all cards
+        int result = game.score();
+        switch(result)
+        {
+            case -1:
+                ui.text("The Dealer won.\n");
+                break;
+            case 0:
+                ui.text("Push. No winner.\n");
+                break;
+            case 1:
+                ui.text("You won!\n");
+                break;
+        }
 
         game.cleanup();
         answer = ui.choose("Play again?", yes_no, 0);

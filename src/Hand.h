@@ -34,6 +34,7 @@ class Hand: public vector<Card *>
         void display(BaseUI &ui, bool hide);
         void evalHand(int &value, bool &isSoft);
         int value();
+        int compareHands(Hand &otherHand);
 };
 
 #endif

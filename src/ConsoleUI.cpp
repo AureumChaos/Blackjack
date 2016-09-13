@@ -15,7 +15,13 @@
 #include <string>
 using namespace std;
 
+#include "Card.h"
 #include "ConsoleUI.h"
+
+const string ConsoleUI::RANK_ABBR[] = {"A", "1", "2", "3", "4", "5", "6", "7", "8",
+                                  "9", "10", "J", "Q", "K"};
+const string ConsoleUI::SUIT_UNICODE[] = {"\u2660", "\u2661", "\u2662", "\u2663"};
+
 
 //*********************************************************************
 //
@@ -27,6 +33,37 @@ using namespace std;
 void ConsoleUI::text(const string &str)
 {
     cout << str;
+}
+
+
+//*********************************************************************
+//
+// ConsoleIU::drawCard
+//
+// Draw a playing card at the current text cursor location, and update
+// the text cursor location accordingly.
+//
+// Draw the back of a card if rank = -1.
+//
+//*********************************************************************
+void ConsoleUI::drawCard(int rank, int suit)
+{
+    // Just write it out
+    if (rank == -1)
+        cout << "   <hidden>";
+    else
+    {
+        cout << "   " << Card::RANK_NAMES[rank] << " of ";
+        cout << Card::SUIT_NAMES[suit] << endl;
+    }
+
+    // Use unicode to draw suits
+/*
+    if (rank == -1)
+        cout << "XX ";
+    else
+        wcout << ConsoleUI::RANK_ABBR << ConsoleUI::SUIT_UNICODE << " ";
+*/    
 }
 
 

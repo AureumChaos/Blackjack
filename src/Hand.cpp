@@ -117,3 +117,51 @@ int Hand::value()
 }
 
 
+//*********************************************************************
+//
+// Hand::compareHands
+//
+// Compares this hand with another to determine which is the winner (if any).
+//
+// return values:
+//   -1: The other hand wins.
+//    0: Push. Tie. No hand wins.
+//    1: This hand wins
+//
+//*********************************************************************
+int Hand::compareHands(Hand &otherHand)
+{
+    int WIN=1, PUSH=0, LOSE=-1;
+    int thisValue = this->value();   // No need to call these more than once.
+    int otherValue = otherHand.value();
+
+    if (thisValue > 21)
+    {
+        if(otherValue > 21)
+            return PUSH;
+        else
+            return LOSE;
+    }
+
+    if (thisValue > otherValue || otherValue > 21)
+        return WIN;
+
+    if (thisValue == otherValue)
+    {
+        int thisSize = this->size();
+        int otherSize = otherHand.size();
+
+        // Handle cases of natural blackjack
+        if(thisSize == 2 && otherSize > 2)
+            return WIN;
+
+        if(thisSize > 2 && otherSize == 2)
+            return LOSE;
+
+        return PUSH;
+    }
+
+    return LOSE;
+}
+
+

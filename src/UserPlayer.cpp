@@ -46,10 +46,8 @@ enum Action UserPlayer::decideAction(BaseUI &ui, const Game &game)
     vector<string> choices(char_choices, char_choices + 2);
     string question("What do you want to do?");
 
-    cout << "Calling choose" << endl;
-
     int c = ui.choose(question, choices);
-    cout << "You chose " << choices[c] << endl;
+    ui.text("You chose " + choices[c] + "\n");
 
     Action action;
     switch(c)

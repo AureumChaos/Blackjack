@@ -23,9 +23,13 @@ using namespace std;
 class ConsoleUI : public BaseUI
 {
     public:
+        static const string RANK_ABBR[];
+        static const string SUIT_UNICODE[];
+
         ConsoleUI() {};
         ~ConsoleUI() {};
         virtual void text(const string &str);
+        virtual void drawCard(int rank, int suit);
         virtual int choose(const string &question,
                            const vector<string> &choices,
                            int myDefault=0);

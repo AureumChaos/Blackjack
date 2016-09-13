@@ -22,10 +22,10 @@
 const int Card::NUM_RANKS = 13;
 const int Card::NUM_SUITS = 4;
 
-const string Card::SUIT_NAMES[] = {"Diamonds", "Hearts", "Clubs", "Spades"};
-const string Card::RANK_NAMES[] = {"2", "3", "4", "5", "6", "7", "8", "9",
-    "10", "Jack", "Queen", "King", "Ace"};
-const int Card::RANK_VALUES[] = {2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11};
+const string Card::SUIT_NAMES[] = {"Spades", "Hearts", "Diamonds", "Clubs"};
+const string Card::RANK_NAMES[] = {"Ace", "2", "3", "4", "5", "6", "7", "8",
+    "9", "10", "Jack", "Queen", "King"};
+const int Card::RANK_VALUES[] = {11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10};
 
 
 //*********************************************************************
@@ -53,9 +53,7 @@ Card::Card(int rank_, int suit_)
 //*********************************************************************
 void Card::display(BaseUI &ui)
 {
-    stringstream ss;
-    ss << "   " << RANK_NAMES[this->rank] << " of " << SUIT_NAMES[this->suit] << endl;
-    ui.text(ss.str());
+    ui.drawCard(rank, suit);
 }
 
 
