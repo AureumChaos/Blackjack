@@ -4,8 +4,11 @@
 [x] Implement UserPlayer  (will there be Game state display issues?)
 [x] Make sure all the logic in the Game class is right
 [x] Handle busts (exit loop)
-[ ] Calculate and display win/push/lose
-[ ] Display unicode cards
+[x] Calculate and display win/push/lose
+[x] Port to Windows
 [ ] Implement Deck as a DLL
 [ ] Implement Win32UI
+[ ] Write the README
+[ ] Make graphics nicer?
+[ ] Display unicode cards?
 

@@ -12,7 +12,8 @@
 // 
 //*********************************************************************
 
-#include <random>
+//#include <random>
+#include <ctime>
 #include <algorithm>
 
 #include "deck.h"
@@ -32,6 +33,10 @@ Deck::Deck()
     int suit;
     int rank;
     
+    // Seed the random number generator
+    std::srand(std::time(0));
+
+    // Generate the deck
     for(suit = 0; suit < Card::NUM_SUITS; suit++)
         for(rank = 0; rank < Card::NUM_RANKS; rank++)
             theDeck.push_back(new Card(rank, suit));
@@ -64,11 +69,11 @@ Deck::~Deck()
 //*********************************************************************
 void Deck::shuffle()
 {
-    //random_shuffle(theDeck.begin(), theDeck.end());
+    random_shuffle(theDeck.begin(), theDeck.end());
 
-    std::random_device rd;
-    std::mt19937 g(rd());
-    std::shuffle(theDeck.begin(), theDeck.end(), g);
+    //std::random_device rd;
+    //std::mt19937 g(rd());
+    //std::shuffle(theDeck.begin(), theDeck.end(), g);
 }
 
 
