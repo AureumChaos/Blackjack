@@ -5,9 +5,10 @@
 [x] Make sure all the logic in the Game class is right
 [x] Handle busts (exit loop)
 [x] Calculate and display win/push/lose
-[ ] Display unicode cards
-[ ] Port to Windows
+[x] Port to Windows
 [ ] Implement Deck as a DLL
 [ ] Implement Win32UI
-[ ] Fill in the README
+[ ] Write the README
+[ ] Make graphics nicer?
+[ ] Display unicode cards?
 
