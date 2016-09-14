@@ -34,10 +34,9 @@ int main()
 
     const char* char_yes_no[] = {"yes", "no"};
     vector<string> yes_no(char_yes_no, char_yes_no + 2);
-    string question("Play again?");
 
-    int answer = 0;
-    while(yes_no[answer] == "yes")
+    int answer = 1;
+    while(yes_no[answer] == "no")
     {
         game.deal();
         game.play(ui);
@@ -58,7 +57,7 @@ int main()
         }
 
         game.cleanup();
-        answer = ui.choose("Play again?", yes_no, 0);
+        answer = ui.choose("Would you like to quit?", yes_no, 1);
     }
 }
 

@@ -42,28 +42,15 @@ enum Action UserPlayer::decideAction(BaseUI &ui, const Game &game)
 {
     game.displayState(ui, true);
 
-    const char* char_choices[] = {"stay", "hit"};
+    Action possible_actions[] = {HIT, STAY};
+    const char* char_choices[] = {"yes", "no"};
     vector<string> choices(char_choices, char_choices + 2);
-    string question("What do you want to do?");
+    string question("Would you like another card (yes=hit, no=stay)?");
 
-    int c = ui.choose(question, choices);
+    int c = ui.choose(question, choices, 1);
     ui.text("You chose " + choices[c] + "\n");
 
-    Action action;
-    switch(c)
-    {
-        case 0:
-            action = STAY;
-            break;
-        case 1:
-            action = HIT;
-            break;
-        default:
-            cerr << "UserPlayer::decideAction" << endl;
-            cerr << "Unkown action.  This should never happen!!" << endl;
-    }
-
-    return action;
+    return possible_actions[c];
 }
 
 

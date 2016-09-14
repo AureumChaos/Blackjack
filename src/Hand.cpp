@@ -135,23 +135,22 @@ int Hand::compareHands(Hand &otherHand)
     int thisValue = this->value();   // No need to call these more than once.
     int otherValue = otherHand.value();
 
+    if (thisValue > 21 && otherValue > 21)
+        return PUSH;
+
+    // Implicit else
     if (thisValue > 21)
-    {
-        if(otherValue > 21)
-            return PUSH;
-        else
-            return LOSE;
-    }
+        return LOSE;
 
     if (thisValue > otherValue || otherValue > 21)
         return WIN;
 
-    if (thisValue == otherValue)
+    // Handle cases of natural blackjack
+    if (thisValue == 21 && otherValue == 21)
     {
         int thisSize = this->size();
         int otherSize = otherHand.size();
 
-        // Handle cases of natural blackjack
         if(thisSize == 2 && otherSize > 2)
             return WIN;
 
@@ -160,6 +159,9 @@ int Hand::compareHands(Hand &otherHand)
 
         return PUSH;
     }
+
+    if (thisValue == otherValue)
+        return PUSH;
 
     return LOSE;
 }
