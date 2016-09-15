@@ -20,7 +20,25 @@ using namespace std;
 #include "BaseUI.h"
 
 
-class Card
+#undef DLL_SIG
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#ifdef BUILD_DLL
+#define DLL_SIG __declspec(dllexport)
+#else
+#define DLL_SIG __declspec(dllimport)
+#endif
+
+#ifdef __cplusplus
+}
+#endif
+
+//#define DLL_SIG 
+
+
+class DLL_SIG Card
 {
     private:
         int suit;

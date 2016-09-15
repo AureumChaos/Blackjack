@@ -37,7 +37,7 @@ class Player
         Player(const string &playerName) : name(playerName) {};
         virtual ~Player();
 
-        virtual void dealACard(Card *card) {hand.push_back(card);};
+        virtual void addCard(Card *card) {hand.push_back(card);};
         virtual int handValue() {return hand.value();};
         virtual void returnCards(Deck &deck);
         virtual void displayHand(BaseUI &ui, bool hide);

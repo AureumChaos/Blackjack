@@ -1,18 +1,18 @@
 //*********************************************************************
 //
-// ConsoleUI.h
+// Win32UI.h
 //
-// A class that defines a simple text user interface.
+// A class that defines a GUI interface using the Win32 API.
 //
 // Author: Jeff Bassett
 //
 // Updates:
-//    09/12/2016  Created
+//    09/14/2016  Created
 // 
 //*********************************************************************
 
-#ifndef CONSOLEUI_H
-#define CONSOLEUI_H
+#ifndef WIN32UI_H
+#define Win32UI_H
 
 #include <string>
 #include <vector>
@@ -39,14 +39,14 @@ extern "C" {
 //#define DLL_SIG 
 
 
-class DLL_SIG ConsoleUI : public BaseUI
+class DLL_SIG Win32UI : public BaseUI
 {
     public:
         static const string RANK_ABBR[];
         static const string SUIT_UNICODE[];
 
-        ConsoleUI() {};
-        ~ConsoleUI() {};
+        Win32UI() {};
+        ~Win32UI() {};
         virtual void text(const string &str);
         virtual void drawCard(int rank, int suit);
         virtual int choose(const string &question,

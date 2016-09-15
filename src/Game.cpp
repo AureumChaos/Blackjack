@@ -68,7 +68,7 @@ void Game::deal()
     {
         vector<Player *>::iterator p_iter;
         for(p_iter = players.begin(); p_iter != players.end(); ++p_iter)
-            (*p_iter)->dealACard(deck.takeTopCard());
+            (*p_iter)->addCard(deck.takeTopCard());
     }
 }
 
@@ -86,7 +86,7 @@ void Game::play(BaseUI &ui)
         while((*p_iter)->handValue() <= 21 &&
               (*p_iter)->decideAction(ui, *this) == HIT)
         {
-            (*p_iter)->dealACard(deck.takeTopCard());
+            (*p_iter)->addCard(deck.takeTopCard());
         }
     }
 }

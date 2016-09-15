@@ -6,7 +6,7 @@
 [x] Handle busts (exit loop)
 [x] Calculate and display win/push/lose
 [x] Port to Windows
-[ ] Implement Deck as a DLL
+[x] Implement Deck as a DLL
 [ ] Implement Win32UI
 [ ] Write the README
 [ ] Make graphics nicer?

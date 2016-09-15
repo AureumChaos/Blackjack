@@ -43,6 +43,10 @@ class Game
         int score() {return user->compareHands(*dealer);};;
         void cleanup();
         void displayState(BaseUI &ui, bool hide) const;
+
+        Player *getDealer() {return dealer;};
+        Player *getUser() { return user;};
+        Deck &getDeck() { return deck;};
 };
 
 #endif

@@ -18,10 +18,29 @@
 #include "card.h"
 #include <vector>
 
-class Deck
+
+#undef DLL_SIG
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#ifdef BUILD_DLL
+#define DLL_SIG __declspec(dllexport)
+#else
+#define DLL_SIG __declspec(dllimport)
+#endif
+
+#ifdef __cplusplus
+}
+#endif
+
+//#define DLL_SIG 
+
+
+class DLL_SIG Deck
 {
     private:
-        vector<Card *> theDeck;  // Might make sense to inherit instead
+        vector<Card *> theDeck;
 
     public:
         Deck();
@@ -33,6 +52,6 @@ class Deck
         Card * takeTopCard();
 };
 
-#endif
+#endif // DECK_H
 
 
