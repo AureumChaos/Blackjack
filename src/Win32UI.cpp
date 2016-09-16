@@ -19,9 +19,43 @@ using namespace std;
 #include "Card.h"
 #include "Win32UI.h"
 
-const string Win32UI::RANK_ABBR[] = {"A", "1", "2", "3", "4", "5", "6", "7", "8",
-                                     "9", "10", "J", "Q", "K"};
-const string Win32UI::SUIT_UNICODE[] = {"\u2660", "\u2661", "\u2662", "\u2663"};
+const string Win32UI::RANK_ABBR[] = {"A", "1", "2", "3", "4", "5", "6",
+                                     "7", "8", "9", "10", "J", "Q", "K"};
+const wchar_t* Win32UI::SUIT_UNICODE[] = {L"\u2660", L"\u2661", L"\u2662", L"\u2663"};
+
+
+//*********************************************************************
+//
+// Win32IU::resetCursor
+//
+// Output some text.
+//
+//*********************************************************************
+void Win32UI::resetCursor()
+{
+    cursorX = 10;
+    cursorY = 10;
+}
+
+
+//*********************************************************************
+//
+// Win32IU::setContext
+//
+// Output some text.
+//
+//*********************************************************************
+void Win32UI::setContext(HDC new_hdc)
+{
+    hdc = new_hdc;
+
+    SIZE size;
+    string myStr("M");
+    GetTextExtentPoint32(hdc, myStr.c_str(), myStr.size(), &size);
+    textHeight = size.cy;
+
+    resetCursor();
+}
 
 
 //*********************************************************************
@@ -33,7 +67,8 @@ const string Win32UI::SUIT_UNICODE[] = {"\u2660", "\u2661", "\u2662", "\u2663"};
 //*********************************************************************
 void Win32UI::text(const string &str)
 {
-    cout << str;
+    TextOut(hdc, cursorX, cursorY, str.c_str(), str.size());
+    cursorY += textHeight;
 }
 
 
@@ -54,11 +89,15 @@ void Win32UI::drawCard(int rank, int suit)
         cout << "   <hidden>";
     else
     {
-        cout << "   " << Card::RANK_NAMES[rank] << " of ";
-        cout << Card::SUIT_NAMES[suit] << endl;
+        string card("   " + Card::RANK_NAMES[rank] + " of " +
+                    Card::SUIT_NAMES[suit]);
+        text(card);
     }
 
-    // Use unicode to draw suits
+    // I was going to us unicode to draw some cooler looking cards, but
+    // unicode is kind of a bitch.  It's like a virus that takes over your
+    // entire program.  I eventually decided to back out just to make sure I
+    // could get something that works.
 /*
     if (rank == -1)
         cout << "XX ";

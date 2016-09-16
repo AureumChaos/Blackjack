@@ -7,7 +7,7 @@
 [x] Calculate and display win/push/lose
 [x] Port to Windows
 [x] Implement Deck as a DLL
-[ ] Implement Win32UI
+[x] Implement Win32UI
 [ ] Write the README
 [ ] Make graphics nicer?
 [ ] Display unicode cards?
