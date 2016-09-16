@@ -1,4 +1,4 @@
-CC=g++ -DUNICODE -c
+CC=g++ -c
 LN=g++
 
 SRC=.
@@ -65,7 +65,7 @@ $(OBJ)/Hand.o:$(SRC)/Hand.cpp $(SRC)/Hand.h $(SRC)/Card.h $(SRC)/BaseUI.h
 	${CC} $< -o $@
 
 $(LIB)/Deck.dll:$(OBJ)/Deck.o $(OBJ)/Card.o $(OBJ)/ConsoleUI.o $(OBJ)/Win32UI.o
-	$(LN) -shared -o $@ $? -Wl,--out-implib,$(LIB)/Deck.a
+	$(LN) -mwindows -shared -o $@ $? -Wl,--out-implib,$(LIB)/Deck.a
 
 $(OBJ)/Deck.o:$(SRC)/Deck.cpp $(SRC)/Deck.h $(SRC)/Card.h $(SRC)/BaseUI.h
 	${CC} -DBUILD_DLL $< -o $@

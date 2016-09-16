@@ -41,12 +41,20 @@ extern "C" {
 
 class DLL_SIG Win32UI : public BaseUI
 {
+    private:
+        int cursorX, cursorY;
+        int textHeight;
+        HDC hdc;
+
     public:
         static const string RANK_ABBR[];
-        static const string SUIT_UNICODE[];
+        static const wchar_t* SUIT_UNICODE[];
 
         Win32UI() {};
         ~Win32UI() {};
+        void resetCursor();
+        void setContext(HDC new_hdc);
+        void releaseContext() {};
         virtual void text(const string &str);
         virtual void drawCard(int rank, int suit);
         virtual int choose(const string &question,

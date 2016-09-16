@@ -30,11 +30,11 @@ enum Action {HIT, STAY};
 class Player
 {
     protected:
-        string name;
-        Hand   hand;
+        string   name;
+        Hand     hand;
 
     public:
-        Player(const string &playerName) : name(playerName) {};
+        Player(string playerName) : name(playerName) {};
         virtual ~Player();
 
         virtual void addCard(Card *card) {hand.push_back(card);};

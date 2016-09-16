@@ -47,6 +47,7 @@ class DLL_SIG BaseUI
     public:
         BaseUI() {};
         virtual ~BaseUI() {};
+        virtual void resetCursor() = 0;
         virtual void text(const string &str) = 0;
         virtual void drawCard(int rank, int suit) = 0;
         virtual int choose(const string &question,

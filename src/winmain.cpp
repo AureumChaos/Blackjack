@@ -19,6 +19,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include <fstream>
 using namespace std;
 
 #include "Card.h"
@@ -28,10 +29,21 @@ using namespace std;
 #include "Win32UI.h"
 
 
-//const char* g_szClassName[] = "myWindowClass";
-const LPCWSTR g_szClassName = {L"myWindowClass"};
+const char* g_szClassName = "myWindowClass";
+//const LPCWSTR g_szClassName = {L"myWindowClass"};
 
-// Step 4: the Window Procedure
+// Game states
+const int NEW_GAME = 0;
+const int PLAYER_TURN = 1;
+const int DEALER_TURN = 2;
+const int GAME_OVER = 3;
+
+int gameState;
+Game *game;
+Win32UI *ui;
+
+
+
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
     switch(msg)
@@ -49,12 +61,19 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
             HFONT g_font = (HFONT)GetStockObject(DEFAULT_GUI_FONT);
             COLORREF g_rgbText = RGB(0, 0, 0);
-            RECT clientRect;
-
-            GetClientRect(hwnd, &clientRect);
             SetTextColor(hdc, g_rgbText);
 
-            DrawText(hdc, L"This is a test \u2660", -1, &clientRect, DT_WORDBREAK);
+            RECT clientRect;
+            GetClientRect(hwnd, &clientRect);
+
+            if(ui != NULL)
+            {
+                ui->setContext(hdc);
+                //TextOut(hdc, 0, 0, "hello", 5);
+                //ui->text("Hello");
+                game->displayState(*ui, !(gameState==GAME_OVER));
+                ui->releaseContext();
+            }
 
             DeleteObject(g_font);
             EndPaint(hwnd, &ps);
@@ -90,7 +109,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
     if(!RegisterClassEx(&wc))
     {
-        MessageBox(NULL, L"Window Registration Failed!", L"Error!",
+        MessageBox(NULL, "Window Registration Failed!", "Error!",
             MB_ICONEXCLAMATION | MB_OK);
         return 0;
     }
@@ -99,14 +118,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     hwnd = CreateWindowEx(
         WS_EX_CLIENTEDGE,
         g_szClassName,
-        L"Blackjack",
+        "Blackjack",
         WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT, CW_USEDEFAULT, 240, 120,
         NULL, NULL, hInstance, NULL);
 
     if(hwnd == NULL)
     {
-        MessageBox(NULL, L"Window Creation Failed!", L"Error!",
+        MessageBox(NULL, "Window Creation Failed!", "Error!",
             MB_ICONEXCLAMATION | MB_OK);
         return 0;
     }
@@ -114,18 +133,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
     ShowWindow(hwnd, nCmdShow);
     UpdateWindow(hwnd);
 
-    // Game states
-    const int NEW_GAME = 0;
-    const int PLAYER_TURN = 1;
-    const int DEALER_TURN = 2;
-    const int GAME_OVER = 3;
-
-    int gameState = NEW_GAME;
-    Win32UI ui;
-    Game game;
-    Player *dealer = game.getDealer();
-    Player *user = game.getUser();
-    Deck &deck = game.getDeck();
+    gameState = NEW_GAME;
+    ui = new Win32UI();
+    game = new Game();
+    Player *dealer = game->getDealer();
+    Player *user = game->getUser();
+    Deck &deck = game->getDeck();
 
     // Step 3: The Message Loop/
     while(TRUE)
@@ -147,67 +160,77 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
         switch(gameState)
         {
             case NEW_GAME:
-                cout << L"NEW_GAME" << endl;
-                game.deal();
+                game->deal();
                 gameState = PLAYER_TURN;
+                InvalidateRect(hwnd, NULL, TRUE); 
                 break;
 
             case PLAYER_TURN:
-                cout << L"PLAYER_TURN" << endl;
-                // XXX game.displayState(ui, false);
                 if (user->handValue() > 21)
                 {
-                    cout << L"Bust" << endl;
                     gameState = DEALER_TURN;
                 }
                 else
                 {
                     int another = MessageBox(NULL,
-                          L"Another card?\nYes = hit\nNo = stay",
-                          L"Hit or Stay",
+                          "Another card?\nYes = hit\nNo = stay",
+                          "Hit or Stay",
                           MB_ICONQUESTION | MB_YESNO);
                     if(another == IDYES)
                     {
-                        cout << L"Hit" << endl;
                         user->addCard(deck.takeTopCard());
-                        // XXX redraw
                     }
                     else
                     {
-                        cout << L"Stay" << endl;
                         gameState = DEALER_TURN;
                     }
                 }
+                InvalidateRect(hwnd, NULL, TRUE); 
                 break;
 
             case DEALER_TURN:
-                cout << L"DEALER_TURN" << endl;
                 if (dealer->handValue() <= 21 
-                       && dealer->decideAction(ui, game) == HIT)
+                       && dealer->decideAction(*ui, *game) == HIT)
                 {
                     dealer->addCard(deck.takeTopCard());
-                    // XXX redraw
                 }
                 else
                 {
                     gameState = GAME_OVER;
                 }
+                InvalidateRect(hwnd, NULL, TRUE); 
                 break;
 
             case GAME_OVER:
-                cout << L"GAME_OVER" << endl;
-                // XXX Figure out who won
-                int again = MessageBox(NULL, L"Play another hand?", L"Game over",
+                string message;
+                int winner=game->score();
+                switch(winner)
+                {
+                    case -1:
+                        message = "You lost.\n\n";
+                        break;
+                    case 0:
+                        message = "Push.  It's a tie.\n\n";
+                        break;
+                    case 1:
+                        message = "You won!!\n\n";
+                }
+                message = message + "Play another hand?";
+
+                int again = MessageBox(NULL, message.c_str(), "Game over",
                         MB_ICONQUESTION | MB_YESNO);
                 if(again == IDNO)
                     PostMessage(hwnd, WM_QUIT, 0, 0);
                 else
                 {
                     gameState = NEW_GAME;
-                    game.cleanup();
+                    game->cleanup();
                 }
         }
     }
+
+    delete game;
+    delete ui;
 
     return Msg.wParam;
 }
